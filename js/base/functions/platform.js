@@ -21,7 +21,9 @@ const isWebWorker = typeof WorkerGlobalScope !== 'undefined' && (self instanceof
 
 const isWindows = typeof process !== 'undefined' && process.platform === "win32"
 
-const isNode = !(isBrowser || isWebWorker)
+const isReactNativeOrExpo = typeof navigator != 'undefined' && navigator.product == 'ReactNative';
+
+const isNode = !(isBrowser || isWebWorker || isReactNativeOrExpo)
 
 const defaultFetch = typeof (fetch) === "undefined" ? require ('../../static_dependencies/fetch-ponyfill/fetch-node') ().fetch : fetch
 
@@ -35,4 +37,5 @@ module.exports = {
     isNode,
     isWindows,
     defaultFetch,
+    isReactNativeOrExpo
 }
