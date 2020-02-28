@@ -6,6 +6,9 @@
         if (!val) throw new Error(msg || 'Assertion failed');
     }
 
+    const isReactNativeOrExpo = typeof navigator != 'undefined' && navigator.product == 'ReactNative';
+
+
     // Could use `inherits` module, but don't want to move from single file
     // architecture yet.
     function inherits (ctor, superCtor) {
@@ -49,9 +52,12 @@
     BN.wordSize = 26;
 
     var Buffer;
-    try {
-        Buffer = require('buffer').Buffer;
-    } catch (e) {
+
+    if(!isReactNativeOrExpo) {
+        try {
+            Buffer = require('buffer').Buffer;
+        } catch (e) {
+        }
     }
 
     BN.isBN = function isBN (num) {
